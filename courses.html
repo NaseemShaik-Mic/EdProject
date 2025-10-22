@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Courses — Evolve U</title>
+  <link rel="stylesheet" href="style.css">
+  </head>
+<body>
+  <header class="app-header">
+  <h3 class="brand">Evolve U</h3>
+    <div class="header-actions">
+      <a class="ghost" href="index.html">Home</a>
+      <a class="ghost" href="profile.html">Profile</a>
+      <a class="ghost" href="courses.html">Courses</a>
+      <span id="user-area"></span>
+    </div>
+  </header>
+  <main class="container">
+    <section class="screen">
+      <h2>Course Catalog</h2>
+      <div class="row" style="margin:6px 0 12px;align-items:center;">
+        <input id="course-search" placeholder="Search courses" />
+        <button onclick="renderCoursesList()">Search</button>
+        <button class="outline" onclick="resetDemoData()">Reset demo data</button>
+      </div>
+      <div id="courses-list" class="course-grid">
+        <!-- Hardcoded demo courses (added for quick preview) -->
+        <div class="course-card">
+          <!-- placeholder SVG thumb -->
+          <svg class="thumb" viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Course thumbnail">
+            <rect width="100%" height="100%" rx="10" fill="#eaf1ff"/>
+            <rect x="20" y="20" width="140" height="110" rx="8" fill="#fff" opacity="0.6"/>
+            <rect x="180" y="30" width="380" height="18" rx="6" fill="#dbeeff"/>
+            <rect x="180" y="58" width="300" height="12" rx="6" fill="#eaf4ff"/>
+            <rect x="180" y="82" width="220" height="12" rx="6" fill="#eaf4ff"/>
+          </svg>
+          <h4>Intro to Web Development</h4>
+          <p class="small">HTML, CSS and basic JavaScript</p>
+          <div class="row"><button onclick="openCourse('c1')">Open</button><button class="outline" onclick="enrollCourse('c1')">Enroll</button></div>
+        </div>
+
+        <div class="course-card">
+          <!-- placeholder SVG thumb -->
+          <svg class="thumb" viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Course thumbnail">
+            <rect width="100%" height="100%" rx="10" fill="#eaf1ff"/>
+            <circle cx="90" cy="75" r="44" fill="#fff" opacity="0.6"/>
+            <rect x="160" y="30" width="360" height="18" rx="6" fill="#dbeeff"/>
+            <rect x="160" y="58" width="300" height="12" rx="6" fill="#eaf4ff"/>
+            <rect x="160" y="82" width="220" height="12" rx="6" fill="#eaf4ff"/>
+          </svg>
+          <h4>JavaScript Essentials</h4>
+          <p class="small">Variables, functions, and the DOM</p>
+          <div class="row"><button onclick="openCourse('c2')">Open</button><button class="outline" onclick="enrollCourse('c2')">Enroll</button></div>
+        </div>
+
+        <div class="course-card">
+          <!-- placeholder SVG thumb -->
+          <svg class="thumb" viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Course thumbnail">
+            <rect width="100%" height="100%" rx="10" fill="#eaf1ff"/>
+            <rect x="24" y="28" width="140" height="94" rx="8" fill="#fff" opacity="0.6"/>
+            <rect x="180" y="34" width="360" height="18" rx="6" fill="#dbeeff"/>
+            <rect x="180" y="62" width="300" height="12" rx="6" fill="#eaf4ff"/>
+            <rect x="180" y="86" width="220" height="12" rx="6" fill="#eaf4ff"/>
+          </svg>
+          <h4>Python for Data</h4>
+          <p class="small">Intro to Python and data handling</p>
+          <div class="row"><button onclick="openCourse('c3')">Open</button><button class="outline" onclick="enrollCourse('c3')">Enroll</button></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="script.js"></script>
+  <div id="toasts" aria-live="polite" style="position:fixed;right:16px;bottom:16px;z-index:9999"></div>
+  <input id="import-file" type="file" accept="application/json" style="display:none" />
+</body>
+</html>

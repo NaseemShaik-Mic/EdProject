@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Sign up — Evolve U</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="auth-page">
+    <div class="auth-panel">
+      <h1>Create your account</h1>
+  <p>Join Evolve U to keep track of your progress</p>
+      <input id="signup-name" placeholder="Full name">
+      <input id="signup-email" placeholder="Email" type="email">
+      <input id="signup-password" placeholder="Password" type="password">
+      <div class="row">
+        <button onclick="doSignup()">Create account</button>
+        <a href="login.html" class="ghost">Sign in</a>
+      </div>
+      <p class="muted">This demo stores account info locally in your browser only.</p>
+    </div>
+  </main>
+  <script src="script.js"></script>
+  <div id="toasts" aria-live="polite" style="position:fixed;right:16px;bottom:16px;z-index:9999"></div>
+  <input id="import-file" type="file" accept="application/json" style="display:none" />
+</body>
+</html>

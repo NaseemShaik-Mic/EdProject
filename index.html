@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Evolve U — Home</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="left">
+      <h3 class="brand">Evolve U</h3>
+    </div>
+    <nav class="nav-right">
+      <a href="courses.html">Courses</a>
+      <a href="profile.html">Profile</a>
+      <button class="ghost" onclick="showScreen('dashboard')">Dashboard</button>
+      <button class="ghost" id="dark-toggle" onclick="toggleDark()">Dark</button>
+      <div class="dropdown">
+        <button class="ghost">Data</button>
+        <div class="dropdown-content">
+          <button onclick="exportData()">Export</button>
+          <button onclick="importData()">Import</button>
+        </div>
+      </div>
+      <span id="user-area"></span>
+    </nav>
+  </header>
+
+  <div id="app">
+    <!-- Welcome / Hero -->
+    <section class="hero" id="welcome-screen">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <h1>Evolve U — Learn. Evolve. Succeed.</h1>
+          <p class="lead">A modern e‑learning platform with personalized learning paths, expert‑led courses, and curated resources to accelerate your skills and career.</p>
+          <div class="hero-ctas">
+            <a class="cta" href="courses.html">Browse Courses</a>
+            <a class="outline" href="signup.html">Get Started</a>
+          </div>
+          <div class="hero-stats">
+            <span class="small">Over <strong>120+</strong> courses • <strong>10k+</strong> learners</span>
+          </div>
+        </div>
+        <div class="hero-media">
+          <!-- Inline SVG illustration to avoid external image requests/404s -->
+          <svg class="hero-img" viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustration of learning">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1">
+                <stop offset="0" stop-color="#e6f0ff"/>
+                <stop offset="1" stop-color="#f7fbff"/>
+              </linearGradient>
+            </defs>
+            <rect x="0" y="0" width="640" height="420" rx="14" fill="url(#g1)" />
+            <rect x="48" y="56" width="544" height="240" rx="10" fill="#ffffff" opacity="0.95"/>
+            <rect x="88" y="112" width="432" height="12" rx="6" fill="#dbeeff"/>
+            <rect x="88" y="136" width="360" height="10" rx="5" fill="#eaf4ff"/>
+            <rect x="88" y="160" width="260" height="10" rx="5" fill="#eaf4ff"/>
+            <rect x="120" y="220" width="400" height="10" rx="6" fill="#dbeeff"/>
+            <g transform="translate(96,272)">
+              <rect x="0" y="0" width="448" height="10" rx="6" fill="#cfe3ff"/>
+            </g>
+            <circle cx="520" cy="80" r="34" fill="#4f8cff" opacity="0.95"/>
+            <g transform="translate(504,66)" fill="#fff">
+              <path d="M6 6h24v4H6zM6 14h18v4H6z"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured courses preview -->
+    <section class="screen" id="featured-screen">
+      <div class="featured-header">
+        <h2>Featured Courses</h2>
+        <a class="view-all" href="courses.html" aria-label="View all courses">See all courses →</a>
+      </div>
+      <p class="muted">Hand-picked courses to help you build skills fast. Tap a card to view details or enroll.</p>
+      <div class="featured-courses">
+        <div id="courses-list" class="course-grid" aria-live="polite">
+          <!-- Course cards are rendered here by script.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Add Resources (embedded screen) -->
+    <section class="screen" id="resources-screen" style="display:none;">
+      <h2>Add Resources</h2>
+      <p>Drag & drop links, documents, or add from your device</p>
+      <div class="drop-area" id="drop-area">Drag & drop files or paste links here</div>
+      <div class="row" style="margin-top:10px">
+        <input id="file-input" type="file" multiple hidden>
+        <button onclick="document.getElementById('file-input').click()">Upload from device</button>
+        <input id="link-input" placeholder="Paste a link and press Add" />
+        <button onclick="addLink()" class="outline">Add</button>
+      </div>
+      <h3>Uploaded resources</h3>
+      <ul id="resources-list" class="resource-list"></ul>
+    </section>
+
+    <!-- Learning Path (embedded) -->
+    <section class="screen" id="learning-path-screen" style="display:none;">
+      <h2>Your Learning Path</h2>
+      <p>AI has generated a personalized learning path for you</p>
+      <div class="add-task">
+        <input id="new-task-input" placeholder="Add a new task" />
+        <input id="new-task-date" type="date" />
+        <button onclick="addTask()">Add</button>
+      </div>
+      <ul id="tasks" class="learning-list"></ul>
+    </section>
+
+    <!-- Dashboard (embedded) -->
+    <section class="screen" id="dashboard-screen" style="display:none;">
+      <h2>Dashboard</h2>
+      <div class="progress-bar">
+        <div class="label-row"><span>Progress</span><span id="progress-percent">0%</span></div>
+        <div class="bar"><div id="dashboard-fill" class="fill" style="width:0%"></div></div>
+      </div>
+      <div class="milestone">
+        <span>Next milestone</span>
+        <div id="next-milestone">—</div>
+      </div>
+      <div class="resources">
+        <span>Course resources</span>
+        <ul id="dashboard-resources" class="resource-list"></ul>
+      </div>
+    </section>
+
+    <!-- Bottom navigation (SPA controls) -->
+    <!-- Removed SPA control buttons to simplify UI (they were small action buttons under Featured Courses) -->
+    <!-- If you want them back for quick navigation in development, uncomment the nav below. -->
+    <!--
+    <nav class="nav" style="margin-top:18px">
+      <button onclick="showScreen('welcome')">Welcome</button>
+      <button onclick="showScreen('resources')">Add Resources</button>
+      <button onclick="showScreen('learning-path')">Learning Path</button>
+      <button onclick="showScreen('dashboard')">Dashboard</button>
+    </nav>
+    -->
+
+  </div>
+
+  <!-- Login Modal -->
+  <div class="modal" id="login-modal" aria-hidden="true">
+    <div class="modal-panel">
+      <h3>Log in</h3>
+      <input id="login-email" placeholder="Email" />
+      <input id="login-password" placeholder="Password" type="password" />
+      <div class="row">
+        <button onclick="doLogin()">Log in</button>
+        <button class="outline" onclick="closeModal('login-modal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Signup Modal -->
+  <div class="modal" id="signup-modal" aria-hidden="true">
+    <div class="modal-panel">
+      <h3>Sign up</h3>
+      <input id="signup-name" placeholder="Full name" />
+      <input id="signup-email" placeholder="Email" />
+      <input id="signup-password" placeholder="Password" type="password" />
+      <div class="row">
+        <button onclick="doSignup()">Create account</button>
+        <button class="outline" onclick="closeModal('signup-modal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toasts -->
+  <div id="toasts" aria-live="polite" style="position:fixed;right:16px;bottom:16px;z-index:9999"></div>
+  <input id="import-file" type="file" accept="application/json" style="display:none" />
+
+  <script src="script.js"></script>
+</body>
+</html>
